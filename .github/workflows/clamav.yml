@@ -7,17 +7,13 @@ on:
     branches:
       - master
 jobs:
-  gitavscan:
-    runs-on: ubuntu-latest
-    name: History AV Scan
+  job_id:
+    name: "Scan Virus"
+    runs-on: "ubuntu-latest"
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: '0'
-    - name: Change working directory to checked-out directory
-      run: cd ${{ github.workspace }}
-    - name: Git AV Scan
-      uses: djdefi/gitavscan@main
-      with:
-        full: '--full'
-        sha: ${{ github.sha }}
+      - name: "Checkout Repository"
+        uses: "actions/checkout@v3.5.0"
+        with:
+          fetch-depth: 0
+      - name: "Scan Repository"
+        uses: "hugoalh/scan-virus-ghaction@v0.10.0"
