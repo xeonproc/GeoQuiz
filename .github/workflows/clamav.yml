@@ -1,0 +1,23 @@
+name: Run ClamAV
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  gitavscan:
+    runs-on: ubuntu-latest
+    name: History AV Scan
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: '0'
+    - name: Change working directory to checked-out directory
+      run: cd ${{ github.workspace }}
+    - name: Git AV Scan
+      uses: djdefi/gitavscan@main
+      with:
+        full: '--full'
+        sha: ${{ github.sha }}
