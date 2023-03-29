@@ -1,19 +1,14 @@
-name: Run ClamAV
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: [push]
+
 jobs:
-  job_id:
-    name: "Scan Virus"
-    runs-on: "ubuntu-latest"
+  gitavscan:
+    runs-on: ubuntu-latest
+    name: History AV Scan
     steps:
-      - name: "Checkout Repository"
-        uses: "actions/checkout@v3.5.0"
-        with:
-          fetch-depth: 0
-      - name: "Scan Repository"
-        uses: "hugoalh/scan-virus-ghaction@v0.10.0"
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: '0'
+    - name: Git AV Scan
+      uses: djdefi/gitavscan@main
+      with:
+        full: '--full'
